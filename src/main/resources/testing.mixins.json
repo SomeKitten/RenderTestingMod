@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "space.cutekitten.testing.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+  ],
+  "client": [
+    "AmbientOcclusionCalculatorMixin",
+    "BlockMixin",
+    "BlockModelRendererMixin",
+    "KeyboardMixin",
+    "MinecraftClientMixin",
+    "RebuildTaskMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
