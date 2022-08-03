@@ -3,12 +3,14 @@ package space.cutekitten.testing.client;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Matrix4f;
 
 import java.util.Random;
 
 public class ClientDB {
     public enum RenderingTest {
         NONE,
+        ORTHOGRAPHIC,
         LOOK_AT,
         ONE_BLOCK,
         ONE_TYPE,
@@ -17,7 +19,7 @@ public class ClientDB {
         RANDOM_SCALE,
         RANDOM_ROTATION,
         RANDOM_INSANITY,
-        ORTHOGRAPHIC,
+        NO_DEPTH_TEST,
 //        WIREFRAME,
         ;
 
@@ -29,6 +31,7 @@ public class ClientDB {
             RANDOM_SCALE.useUpdateEveryTick().useNoShadow().useNoSideCulling().useRandomScale();
             RANDOM_ROTATION.useUpdateEveryTick().useNoShadow().useNoSideCulling().useRandomRotation();
             RANDOM_INSANITY.useUpdateEveryTick().useNoShadow().useNoSideCulling().useRandomOffset().useRandomScale().useRandomRotation();
+            NO_DEPTH_TEST.useDisableDepthTest();
             ORTHOGRAPHIC.useOrthographic();
         }
 
@@ -49,6 +52,7 @@ public class ClientDB {
         private boolean randomScale = false;
         private boolean randomRotation = false;
         private boolean orthographic = false;
+        private boolean disableDepthTest = false;
 
         public RenderingTest useUpdateEveryTick() {
             updateEveryTick = true;
@@ -82,6 +86,10 @@ public class ClientDB {
             orthographic = true;
             return this;
         }
+        public RenderingTest useDisableDepthTest() {
+            disableDepthTest = true;
+            return this;
+        }
 
         public boolean isUpdateEveryTick() {
             return updateEveryTick;
@@ -107,7 +115,23 @@ public class ClientDB {
         public boolean isOrthographic() {
             return orthographic;
         }
+        public boolean isDisableDepthTest() {
+            return disableDepthTest;
+        }
     }
+
+    private static Matrix4f orthographic;
+
+    public static void setOrthographicMatrix(Matrix4f matrix) {
+        orthographic = matrix;
+    }
+    public static Matrix4f getOrthographicMatrix() {
+        return orthographic.copy();
+    }
+    public static boolean hasOrthographicMatrix() {
+        return orthographic != null;
+    }
+
     public static BlockState lookingAtSolidBlock;
     public static BlockPos lookingAtSolidPos;
     public static BlockState lookingAtBlock;

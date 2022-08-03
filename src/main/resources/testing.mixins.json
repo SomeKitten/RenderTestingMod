@@ -9,11 +9,11 @@
     "AmbientOcclusionCalculatorMixin",
     "BlockMixin",
     "BlockModelRendererMixin",
-    "BufferRendererMixin",
     "KeyboardMixin",
     "MinecraftClientMixin",
     "RebuildTaskMixin",
-    "RenderSystemMixin"
+    "RenderSystemMixin",
+    "WorldRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

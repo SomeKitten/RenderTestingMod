@@ -3,21 +3,45 @@ package space.cutekitten.testing.mixin;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.util.Window;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Matrix4f;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import space.cutekitten.testing.client.ClientDB;
 import space.cutekitten.testing.client.Raycast;
 
+import java.nio.FloatBuffer;
+
 @Mixin(MinecraftClient.class)
-public class MinecraftClientMixin {
+public abstract class MinecraftClientMixin {
+    @Shadow public abstract Window getWindow();
+
     @Inject(at = @At("RETURN"), method = "tick")
     private void onEndTick(CallbackInfo info) {
+        if (!ClientDB.hasOrthographicMatrix()) {
+            Matrix4f orthographic = new Matrix4f();
+
+            float width = getWindow().getFramebufferWidth();
+            float height = getWindow().getFramebufferHeight();
+            float scale = 0.2f;
+
+            orthographic.readRowMajor(FloatBuffer.wrap(new float[]{
+                    scale, 0.0f, 0.0f, 0.0f,
+                    0.0f, scale * (width / height), 0.0f, 0.0f,
+                    0.0f, 0.0f, -2.0E-5f, 0.0f,
+                    0.0f, 0.0f, 0.0f, 1.0f
+            }));
+
+            ClientDB.setOrthographicMatrix(orthographic);
+        }
+
         updateLookingAtSolid();
         updateLookingAt();
 
