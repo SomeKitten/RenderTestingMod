@@ -3,7 +3,6 @@ package space.cutekitten.testing.client;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Matrix4f;
 
 import java.util.Random;
 
@@ -18,6 +17,7 @@ public class ClientDB {
         RANDOM_SCALE,
         RANDOM_ROTATION,
         RANDOM_INSANITY,
+        ORTHOGRAPHIC,
 //        WIREFRAME,
         ;
 
@@ -29,9 +29,14 @@ public class ClientDB {
             RANDOM_SCALE.useUpdateEveryTick().useNoShadow().useNoSideCulling().useRandomScale();
             RANDOM_ROTATION.useUpdateEveryTick().useNoShadow().useNoSideCulling().useRandomRotation();
             RANDOM_INSANITY.useUpdateEveryTick().useNoShadow().useNoSideCulling().useRandomOffset().useRandomScale().useRandomRotation();
+            ORTHOGRAPHIC.useOrthographic();
         }
 
         private static final RenderingTest[] VALUES = values();
+        public RenderingTest previous() {
+            int val = (this.ordinal() - 1) % VALUES.length;
+            return VALUES[val < 0 ? VALUES.length - 1 : val];
+        }
         public RenderingTest next() {
             return VALUES[(this.ordinal() + 1) % VALUES.length];
         }
@@ -43,6 +48,7 @@ public class ClientDB {
         private boolean randomOffset = false;
         private boolean randomScale = false;
         private boolean randomRotation = false;
+        private boolean orthographic = false;
 
         public RenderingTest useUpdateEveryTick() {
             updateEveryTick = true;
@@ -72,6 +78,10 @@ public class ClientDB {
             randomRotation = true;
             return this;
         }
+        public RenderingTest useOrthographic() {
+            orthographic = true;
+            return this;
+        }
 
         public boolean isUpdateEveryTick() {
             return updateEveryTick;
@@ -94,6 +104,9 @@ public class ClientDB {
         public boolean isRandomRotation() {
             return randomRotation;
         }
+        public boolean isOrthographic() {
+            return orthographic;
+        }
     }
     public static BlockState lookingAtSolidBlock;
     public static BlockPos lookingAtSolidPos;
@@ -101,5 +114,6 @@ public class ClientDB {
     public static BlockPos lookingAtPos;
     public static MinecraftClient client = MinecraftClient.getInstance();
     public static RenderingTest renderingTest = RenderingTest.NONE;
+    public static float renderingIntensity = 0.1f;
     public static Random random = new Random();
 }
