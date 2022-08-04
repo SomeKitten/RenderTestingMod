@@ -28,6 +28,8 @@ public class KeyboardMixin {
 //                raise/lower intensity
                 case GLFW.GLFW_KEY_UP -> ClientDB.renderingIntensity += 0.1f;
                 case GLFW.GLFW_KEY_DOWN -> ClientDB.renderingIntensity -= 0.1f;
+                case GLFW.GLFW_KEY_EQUAL -> ClientDB.debugRenderer++;
+                case GLFW.GLFW_KEY_MINUS -> ClientDB.debugRenderer--;
             }
         }
     }

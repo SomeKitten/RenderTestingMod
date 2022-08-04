@@ -139,5 +139,6 @@ public class ClientDB {
     public static MinecraftClient client = MinecraftClient.getInstance();
     public static RenderingTest renderingTest = RenderingTest.NONE;
     public static float renderingIntensity = 0.1f;
+    public static int debugRenderer = -1;
     public static Random random = new Random();
 }

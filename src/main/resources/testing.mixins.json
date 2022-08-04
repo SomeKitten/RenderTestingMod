@@ -9,6 +9,7 @@
     "AmbientOcclusionCalculatorMixin",
     "BlockMixin",
     "BlockModelRendererMixin",
+    "DebugRendererMixin",
     "KeyboardMixin",
     "MinecraftClientMixin",
     "RebuildTaskMixin",
