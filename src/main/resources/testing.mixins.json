@@ -4,6 +4,9 @@
   "package": "space.cutekitten.testing.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "CommandManagerMixin",
+    "DebugInfoSenderMixin",
+    "ServerWorldMixin"
   ],
   "client": [
     "AmbientOcclusionCalculatorMixin",

@@ -78,17 +78,12 @@ public class DebugRendererMixin {
 
     @Inject(method = "render", at = @At("TAIL"))
     private void renderDebug(MatrixStack matrices, VertexConsumerProvider.Immediate vertexConsumers, double cameraX, double cameraY, double cameraZ, CallbackInfo ci) {
-        if (ClientDB.debugRenderer < -1) {
-            ClientDB.debugRenderer = renderers.size() - 1;
-        }
-        if (ClientDB.debugRenderer > renderers.size() - 1) {
-            ClientDB.debugRenderer = -1;
-        }
-
         if (ClientDB.debugRenderer == -1) {
             return;
         }
 
-        renderers.get(ClientDB.debugRenderer).render(matrices, vertexConsumers, cameraX, cameraY, cameraZ);
+        DebugRenderer.Renderer renderer = renderers.get(ClientDB.debugRenderer);
+
+        renderer.render(matrices, vertexConsumers, cameraX, cameraY, cameraZ);
     }
 }
