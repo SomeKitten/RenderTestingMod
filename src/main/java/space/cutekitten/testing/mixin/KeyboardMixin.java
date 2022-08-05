@@ -37,31 +37,6 @@ public class KeyboardMixin {
                     ClientDB.renderingIntensity -= 0.1f;
                     client.inGameHud.setOverlayMessage(Text.literal("Rendering intensity: " + ClientDB.renderingIntensity), false);
                 }
-                case GLFW.GLFW_KEY_EQUAL -> {
-                    ClientDB.debugRenderer++;
-                    if (ClientDB.debugRenderer > ClientDB.debugRenderers.length - 1) {
-                        ClientDB.debugRenderer = -1;
-                    }
-                    client.inGameHud.setOverlayMessage(Text.literal("Debug renderer: " +
-                            (ClientDB.debugRenderer == -1 ? "none" : ClientDB.debugRenderers[ClientDB.debugRenderer])
-                    ), false);
-                }
-                case GLFW.GLFW_KEY_MINUS -> {
-                    ClientDB.debugRenderer--;
-                    if (ClientDB.debugRenderer < -1) {
-                        ClientDB.debugRenderer = ClientDB.debugRenderers.length - 1;
-                    }
-                    client.inGameHud.setOverlayMessage(Text.literal("Debug renderer: " +
-                            (ClientDB.debugRenderer == -1 ? "none" : ClientDB.debugRenderers[ClientDB.debugRenderer])
-                    ), false);
-                }
-            }
-
-            if (ClientDB.debugRenderer < -1) {
-                ClientDB.debugRenderer = ClientDB.debugRenderers.length - 1;
-            }
-            if (ClientDB.debugRenderer > ClientDB.debugRenderers.length - 1) {
-                ClientDB.debugRenderer = -1;
             }
         }
     }

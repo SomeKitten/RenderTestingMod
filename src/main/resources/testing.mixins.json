@@ -4,15 +4,12 @@
   "package": "space.cutekitten.testing.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "CommandManagerMixin",
-    "DebugInfoSenderMixin",
-    "ServerWorldMixin"
+    "CommandManagerMixin"
   ],
   "client": [
     "AmbientOcclusionCalculatorMixin",
     "BlockMixin",
     "BlockModelRendererMixin",
-    "DebugRendererMixin",
     "KeyboardMixin",
     "MinecraftClientMixin",
     "RebuildTaskMixin",
