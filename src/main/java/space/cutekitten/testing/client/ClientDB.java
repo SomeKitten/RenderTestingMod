@@ -4,8 +4,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Matrix4f;
-import net.minecraft.util.math.Quaternion;
-import net.minecraft.util.math.Vec3f;
+import space.cutekitten.testing.mixin.Matrix4fAccessor;
 
 import java.util.Random;
 
@@ -128,10 +127,31 @@ public class ClientDB {
         orthographic = matrix;
     }
     public static Matrix4f getOrthographicMatrix() {
+        if (orthographic == null) {
+            float width = (float)((double)ClientDB.client.getWindow().getFramebufferWidth() / ClientDB.client.getWindow().getScaleFactor());
+            float height = (float)((double)ClientDB.client.getWindow().getFramebufferHeight() / ClientDB.client.getWindow().getScaleFactor());
+            float scale = 0.01f;
+            Matrix4f orthographic = Matrix4f.projectionMatrix(
+                    -width * scale,
+                    width * scale,
+                    -height * scale,
+                    height * scale,
+                    0000.0F,
+                    3000.0F
+            );
+
+            Matrix4fAccessor matrix4fAccessor = (Matrix4fAccessor)(Object)orthographic;
+            matrix4fAccessor.setA11(-matrix4fAccessor.getA11());
+            matrix4fAccessor.setA23(0);
+
+            System.out.println("ortho2: " + orthographic);
+            System.out.println(ClientDB.client.getWindow().getScaleFactor());
+            System.out.println(width + " " + height);
+
+            ClientDB.setOrthographicMatrix(orthographic);
+        }
+
         return orthographic.copy();
-    }
-    public static boolean hasOrthographicMatrix() {
-        return orthographic != null;
     }
 
     public static BlockState lookingAtSolidBlock;
@@ -142,5 +162,4 @@ public class ClientDB {
     public static RenderingTest renderingTest = RenderingTest.NONE;
     public static float renderingIntensity = 0.1f;
     public static Random random = new Random();
-    public static Quaternion halfTurn = Vec3f.POSITIVE_Z.getDegreesQuaternion(180);
 }

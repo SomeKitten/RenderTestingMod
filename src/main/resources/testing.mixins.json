@@ -10,7 +10,6 @@
     "AmbientOcclusionCalculatorMixin",
     "BlockMixin",
     "BlockModelRendererMixin",
-    "CameraMixin",
     "GameRendererMixin",
     "KeyboardMixin",
     "MinecraftClientMixin",
