@@ -13,6 +13,7 @@
     "GameRendererMixin",
     "KeyboardMixin",
     "MinecraftClientMixin",
+    "PerspectiveMixin",
     "RebuildTaskMixin",
     "RenderSystemMixin",
     "WorldRendererMixin"

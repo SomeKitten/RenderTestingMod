@@ -2,6 +2,7 @@ package space.cutekitten.testing.client;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.option.Perspective;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Matrix4f;
 import space.cutekitten.testing.mixin.Matrix4fAccessor;
@@ -42,7 +43,11 @@ public class ClientDB {
             return VALUES[val < 0 ? VALUES.length - 1 : val];
         }
         public RenderingTest next() {
-            return VALUES[(this.ordinal() + 1) % VALUES.length];
+            RenderingTest test = VALUES[(this.ordinal() + 1) % VALUES.length];
+            if (test.isOrthographic()) {
+                client.options.setPerspective(Perspective.THIRD_PERSON_BACK);
+            }
+            return test;
         }
 
         private boolean updateEveryTick = false;
