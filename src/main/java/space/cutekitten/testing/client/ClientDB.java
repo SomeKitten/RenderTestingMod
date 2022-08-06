@@ -4,6 +4,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Matrix4f;
+import net.minecraft.util.math.Quaternion;
+import net.minecraft.util.math.Vec3f;
 
 import java.util.Random;
 
@@ -140,4 +142,5 @@ public class ClientDB {
     public static RenderingTest renderingTest = RenderingTest.NONE;
     public static float renderingIntensity = 0.1f;
     public static Random random = new Random();
+    public static Quaternion halfTurn = Vec3f.POSITIVE_Z.getDegreesQuaternion(180);
 }

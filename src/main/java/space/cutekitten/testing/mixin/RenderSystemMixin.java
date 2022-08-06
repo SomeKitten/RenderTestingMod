@@ -12,12 +12,12 @@ import space.cutekitten.testing.client.ClientDB;
 
 @Mixin(RenderSystem.class)
 public abstract class RenderSystemMixin {
-    @Inject(method = "getProjectionMatrix", at = @At("RETURN"), cancellable = true)
-    private static void getMatrix(CallbackInfoReturnable<Matrix4f> cir) {
-        if (ClientDB.renderingTest.isOrthographic()) {
-            cir.setReturnValue(ClientDB.getOrthographicMatrix());
-        }
-    }
+//    @Inject(method = "getProjectionMatrix", at = @At("RETURN"), cancellable = true)
+//    private static void getMatrix(CallbackInfoReturnable<Matrix4f> cir) {
+//        if (ClientDB.renderingTest.isOrthographic()) {
+//            cir.setReturnValue(ClientDB.getOrthographicMatrix());
+//        }
+//    }
 
     @Redirect(method = "enableDepthTest", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/GlStateManager;_enableDepthTest()V"), remap = false)
     private static void enableDepthTest() {

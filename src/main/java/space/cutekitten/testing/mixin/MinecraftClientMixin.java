@@ -39,7 +39,41 @@ public abstract class MinecraftClientMixin {
                     0.0f, 0.0f, 0.0f, 1.0f
             }));
 
-            ClientDB.setOrthographicMatrix(orthographic);
+//            float width2 = (float)((double)ClientDB.client.getWindow().getFramebufferWidth() / ClientDB.client.getWindow().getScaleFactor());
+//            float height2 = (float)((double)ClientDB.client.getWindow().getFramebufferHeight() / ClientDB.client.getWindow().getScaleFactor());
+////            float scale2 = 1;
+//            float scale2 = 0.01f;
+//            Matrix4f orthographic2 = Matrix4f.projectionMatrix(
+//                    -width2 * scale2,
+//                    width2 * scale2,
+//                    -height2 * scale2,
+//                    height2 * scale2,
+//                    0000.0F,
+//                    3000.0F
+//            );
+
+            float width2 = (float)((double)ClientDB.client.getWindow().getFramebufferWidth() / ClientDB.client.getWindow().getScaleFactor());
+            float height2 = (float)((double)ClientDB.client.getWindow().getFramebufferHeight() / ClientDB.client.getWindow().getScaleFactor());
+            float scale2 = 0.01f;
+            Matrix4f orthographic2 = Matrix4f.projectionMatrix(
+                    -width2 * scale2,
+                    width2 * scale2,
+                    -height2 * scale2,
+                    height2 * scale2,
+                    0000.0F,
+                    3000.0F
+            );
+
+            Matrix4fAccessor matrix4fAccessor = (Matrix4fAccessor)(Object)orthographic2;
+            matrix4fAccessor.setA11(-matrix4fAccessor.getA11());
+            matrix4fAccessor.setA23(0);
+
+            System.out.println("ortho: " + orthographic);
+            System.out.println("ortho2: " + orthographic2);
+            System.out.println(ClientDB.client.getWindow().getScaleFactor());
+            System.out.println(width2 + " " + height2);
+
+            ClientDB.setOrthographicMatrix(orthographic2);
         }
 
         updateLookingAtSolid();
